@@ -2,19 +2,30 @@
 <head><title>||Mobile Testing||</title></head>
 <body style="background-color: red;">
 
-<p style="font-size: 40px">text</p>
+<div style="text-align: center">
+	<button onmousedown="touch_down()" onmouseup="touch_up()" style="font-size: 160px"> button </button>
+</div>
 
 <script>
 	var body = document.body;
-	body.style.backgroundColor = "rgb(150,150,150)";
-	const bri = 200;
+	body.style.backgroundColor = "rgb(200,200,200)";
+	
+	function touch_down() {
+		document.body.style.backgroundColor = "rgb(100,100,255)";
+	}
+	
+	function touch_up() {
+		document.body.style.backgroundColor = "rgb(255,100,100)";
+	}
+	
+	/*const bri = 200;
 	var green = bri;
 	var col = setInterval(function() {
 		green++;
 		if (green < 255) green++;
 		else green = bri;
 		body.style.backgroundColor = "rgb(" + bri + "," + green + "," + bri + ")";
-	}, 5);
+	}, 5);*/
 </script>
 
 </body>
