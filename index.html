@@ -2,11 +2,19 @@
 <head><title>||Mobile Testing||</title></head>
 <body style="background-color: red;">
 
-<p>text</p>
+<p style="font-size: 40px">text</p>
 
 <script>
 	var body = document.body;
-	body.style.backgroundColor = "blue";
+	body.style.backgroundColor = "rgb(150,150,150)";
+	const bri = 200;
+	var green = bri;
+	var col = setInterval(function() {
+		green++;
+		if (green < 255) green++;
+		else green = bri;
+		body.style.backgroundColor = "rgb(" + bri + "," + green + "," + bri + ")";
+	}, 5);
 </script>
 
 </body>
