@@ -3,7 +3,11 @@
 <body style="background-color: red;">
 
 <div style="text-align: center">
-	<button onmousedown="touch_down()" onmouseup="touch_up()" style="font-size: 160px"> button </button>
+	<div ontouchstart="touch_down()"
+		 ontouchend="touch_up()"
+		 style="font-size:160px; background-color:white; width:450px; display:inline-block; text-align:center">
+		 go
+		 </div>
 </div>
 
 <script>
@@ -26,6 +30,11 @@
 		else green = bri;
 		body.style.backgroundColor = "rgb(" + bri + "," + green + "," + bri + ")";
 	}, 5);*/
+	
+	/*
+	onmousedown & onmouseup works for mouse, but doesnt notice ontouchdown
+	
+	*/
 </script>
 
 </body>
