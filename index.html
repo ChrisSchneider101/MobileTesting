@@ -11,17 +11,52 @@
 	text-align:center;
 	border-radius: 50%;
 }
+#username {
+	font-size:80px;
+}
 </style>
 </head>
 <body style="background-color: red;">
 
 <div style="text-align: center">
+	<p id="username"></p>
+	<br>
 	<div id="thebutton" ontouchstart="touch_down()" ontouchend="touch_up()"></div>
+	<br>
+	<button id="clear_cookies" onclick="clearAllCookies()" ontouchend="clearAllCookies()">Clear Cookies</button>
+	<br>
+	<button id="print_cookies" onclick="printCookies()" ontouchend="printCookies()">Print Cookies</button>
 </div>
 
+
 <script>
+	
+</script>
+
+<script>
+	//var username;
+	if (getCookie("testUser") == "") setCookie("testUser", prompt("im lookin for a name, new boy","new boy"));
+	document.getElementById("username").innerHTML = getCookie("testUser");
+	
 	var body = document.body;
 	body.style.backgroundColor = "rgb(200,200,200)";
+	//document.cookie = "tc1=heyworld";
+	//document.cookie = "tc2=12345";
+	console.log(document.cookie);
+	//console.log(document.cookie.split("; ")[0]);
+	//setCookie("tc1", "where did we meet before, just like this");
+	//setCookie("tc2", "i know your smile, your voice, just like that");
+	//setCookie("tc3", "you talk to me and i smile back");
+	//document.cookie = "tc1=yoyoyo";
+	console.log(document.cookie);
+	console.log(getCookie("tc1"));
+	console.log(getCookie("tc2"));
+	console.log(getCookie("tc3"));
+	//clearCookie("tc1");
+	//clearAllCookies();
+	//console.log(getCookie("tc1"));
+	//console.log(getCookie("tc2"));
+	//console.log(getCookie("tc3"));
 	
 	function touch_down() {
 		document.body.style.backgroundColor = "rgb(100,100,255)";
@@ -30,6 +65,37 @@
 	function touch_up() {
 		document.body.style.backgroundColor = "rgb(255,100,100)";
 	}
+	
+	function getCookie(coo) {
+		var match = coo + "=";											//match this in cookie string
+		var decoded_cookies = decodeURIComponent(document.cookie);		//apparently helps special characters
+		var cookies_array = decoded_cookies.split(";");					//cookies now in an array format
+		for (let i = 0; i < cookies_array.length; i++) {
+			var cookie = cookies_array[i];
+			while (cookie.charAt(0) == ' ') cookie = cookie.substring(1);//get rid of whitespace in front of cookie
+			if (cookie.indexOf(match) == 0)								//if the cookie is the one searched for
+				return cookie.substring(match.length, cookie.length);	//get value part of the pair
+		}
+		return "";														//return empty string if not found
+	}
+	
+	function setCookie(coo, val) { document.cookie = coo + "=" + val + ";  expires=Thu, 31 Dec 2099 12:00:00 UTC; path=/"; }
+	
+	function clearCookie(coo) { document.cookie = coo + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/"; }
+	
+	function clearAllCookies() {
+		var decoded_cookies = decodeURIComponent(document.cookie);
+		var cookies_array = decoded_cookies.split(";");
+		for (let i = 0; i < cookies_array.length; i++) {
+			var cookie = cookies_array[i];
+			while (cookie.charAt(0) == ' ') cookie = cookie.substring(1);
+			var pairsplit = cookie.indexOf("=");
+			clearCookie(cookie.substring(0, pairsplit));
+			//document.cookie = cookie.substring(0, pairsplit+1) + ";";
+		}
+	}
+	
+	function printCookies() { console.log(document.cookie); }
 	
 	/*const bri = 200;
 	var green = bri;
