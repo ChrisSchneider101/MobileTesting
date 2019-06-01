@@ -7,7 +7,6 @@
 	background-color:black;
 	width:250px;
 	height:250px;
-	display:block;
 	text-align:center;
 	border-radius: 10%;
 	touch-action:none;
@@ -33,6 +32,7 @@ body {
 <!--
 pointer-events:none;
 touch-action:manipulation;
+display:block;
 -->
 </style>
 </head>
@@ -43,7 +43,7 @@ touch-action:manipulation;
 	<br>
 	<div id="b2" class="noninline" ontouchstart="touch_down()" ontouchend="touch_up()"></div>
 	<br>
-	<div id="thebutton" ontouchstart="touch_down()" ontouchend="touch_up()"></div>
+	<button id="thebutton" ontouchstart="touch_down()" ontouchend="touch_up()"></button>
 	<br>
 	<button id="clear_cookies" onclick="clearAllCookies()" ontouchend="clearAllCookies()">Clear Cookies</button>
 	<br>
