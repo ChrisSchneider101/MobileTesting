@@ -63,16 +63,38 @@ Game = function() {
 	
 	this.getSecondsLeft = function() {
 		var now = new Date();
-		var end = new Date(getCookie("timer_end"));
+		now = now.getTime();
+		end = getCookie("timer_end");
+		//var end = new Date(this.getReadyTime());	//old
+		//var end = new Date.UTC(getCookie("timer_year"), getCookie("timer_month"),
+		//				   getCookie("timer_day"), getCookie("timer_hours"),
+		//				   getCookie("timer_minutes"), getCookie("timer_seconds"),
+		//				   getCookie("timer_milliseconds"));
 		return Math.round((end - now) / 1000);
+		//end is in utc code, make sure start is
 	}
 	
 	//used for level up timer setting and timer reductions
 	this.setReadyTime = function(seconds) {
 		var timer_end_date = new Date();
 		timer_end_date.setSeconds(timer_end_date.getSeconds() + seconds);
-		setCookie("timer_end", timer_end_date.toUTCString());
-		//this.sec_left = seconds;
+		//setCookie("timer_end", timer_end_date.toUTCString()); //old
+		//var year = timer_end_date.getUTCFullYear();
+		//var month = timer_end_date.getUTCMonth() + 1;
+		//var day = timer_end_date.getUTCDate();
+		//var hours = timer_end_date.getUTCHours();
+		//var minutes = timer_end_date.getUTCMinutes();
+		//var seconds = timer_end_date.getUTCSeconds();
+		//var milliseconds = timer_end_date.getUTCMilliseconds();
+		// "yyyy-mm-ddThh:mm:ssZ"
+		//setCookie("timer_year", year.toString());
+		//setCookie("timer_month", month.toString());
+		//setCookie("timer_day", day.toString());
+		//setCookie("timer_hours", hours.toString());
+		//setCookie("timer_minutes", minutes.toString());
+		//setCookie("timer_seconds", seconds.toString());
+		//setCookie("timer_milliseconds", milliseconds.toString());
+		setCookie("timer_end", timer_end_date.getTime());
 	}
 	
 	this.getReadyTime = function() {

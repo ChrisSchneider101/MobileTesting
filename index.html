@@ -58,11 +58,11 @@ display:block;
 	<br>
 	<div id="timer"></div>
 	<div id="level"></div>
-	<button id="level_up" onclick="game.levelUp()" ontouchend="game.levelUp()">Level Up</button>
+	<button id="level_up" onclick="game.levelUp()">Level Up</button>
 	<br>
-	<button id="clear_cookies" onclick="clearAllCookies()" ontouchend="clearAllCookies()">Clear Cookies</button>
+	<button id="clear_cookies" onclick="clearAllCookies()">Clear Cookies</button>
 	<br>
-	<button id="print_cookies" onclick="printCookies()" ontouchend="printCookies()">Print Cookies</button>
+	<button id="print_cookies" onclick="printCookies()">Print Cookies</button>
 </div>
 
 
@@ -98,6 +98,8 @@ display:block;
 	//console.log(getCookie("tc1"));
 	//console.log(getCookie("tc2"));
 	//console.log(getCookie("tc3"));
+	var temp = new Date();
+	console.log(">>" + temp.toUTCString());
 	
 	/*
 	var one_year = 60*60*24*365;
