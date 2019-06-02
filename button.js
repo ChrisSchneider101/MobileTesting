@@ -18,7 +18,7 @@ Button = function(game) {
 Game = function() {
 	this.button = new Button(this);
 	this.level;
-	this.sec_left;
+	this.timer_interval;
 	
 	
 	this.initPlayerName = function() {
@@ -75,25 +75,51 @@ Game = function() {
 		//this.sec_left = seconds;
 	}
 	
-	this.syncOnscreenTimer = function() {
-		var seconds_left = this.getSecondsLeft();
-	}
-	
 	this.getReadyTime = function() {
 		return getCookie("timer_end");
 	}
 	
+	this.updateOnscreenTimer = function(seconds) {
+		var timer = document.getElementById("timer");
+		var seconds_left = seconds;
+		timer.innerHTML = seconds_left;
+		clearInterval(this.timer_interval);
+		this.timer_interval = setInterval(function() {
+			if (seconds_left > 0) seconds_left--;
+			else clearInterval(this.timer_interval);
+			timer.innerHTML = seconds_left;
+		}.bind(this), 1000);
+	}
+	
+	this.setLevel = function(level) {
+		setCookie("level", level.toString());
+	}
+	
+	this.getLevel = function() {
+		return parseInt(getCookie("level"));
+	}
+	
+	this.updateOnscreenLevel = function(level) {
+		document.getElementById("level").innerHTML = level;
+	}
+	
 	this.prepareLevel = function(lvl) {
 		this.setReadyTime(this.calcSecondsInLevel(lvl));
-		//set onscreen timer to match
+		this.updateOnscreenTimer(this.getSecondsLeft());
+		this.updateOnscreenLevel(lvl);
+	}
+	
+	this.levelUp = function() {
+		this.setLevel(this.getLevel() + 1);
+		this.prepareLevel(this.getLevel());
 	}
 	
 	this.onPageLoad = function() {
 		// first page load
 		if (getCookie("player_name") == "" || getCookie("player_name") == null) {
 			this.initPlayerName();
-			this.level = 1;
-			this.prepareLevel(this.level);
+			this.setLevel(1);
+			this.prepareLevel(1);
 			//this.sec_left = this.calcSecondsInLevel();
 			//this.setTimerEnd(this.calcSecondsInLevel());
 			
@@ -103,16 +129,19 @@ Game = function() {
 		
 		// every page load
 		document.getElementById("username").innerHTML = getCookie("player_name");
-		//check if timer is up
+		this.updateOnscreenLevel(this.getLevel());
 		var seconds_left = this.getSecondsLeft();
 		console.log(seconds_left);
 		
 		if (seconds_left <= 0) {
 			console.log("timer is up!");
+			document.getElementById("timer").innerHTML = seconds_left;
 			//seconds_left negative, corresponds to wasted time
 		}
 		else {
 			console.log("timer is continuing!");
+			this.updateOnscreenTimer(seconds_left);
+			this.updateOnscreenLevel(this.getLevel());
 			//seconds_left positive, still waiting to be ready
 		}
 		
