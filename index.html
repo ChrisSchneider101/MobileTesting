@@ -24,6 +24,11 @@
 #username {
 	font-size:80px;
 }
+#timer {
+	font-size:100px;
+	background-color:black;
+	color:white;
+}
 body {
 	background-color:green;
 	overflow-x:hidden;
@@ -39,26 +44,29 @@ display:block;
 <body>
 
 <div style="text-align: center">
-	<p id="username"></p>
+	<div id="username"></div>
 	<br>
-	<div id="b2" class="noninline" ontouchstart="touch_down()" ontouchend="touch_up()"></div>
+	<button id="thebutton" ontouchstart="game.button.touchStart();" ontouchend="game.button.touchEnd()"></button>
 	<br>
-	<button id="thebutton" ontouchstart="touch_down()" ontouchend="touch_up()"></button>
-	<br>
+	<div id="timer">time</div> 
 	<button id="clear_cookies" onclick="clearAllCookies()" ontouchend="clearAllCookies()">Clear Cookies</button>
 	<br>
 	<button id="print_cookies" onclick="printCookies()" ontouchend="printCookies()">Print Cookies</button>
 </div>
 
 
+<script src="cookies.js"></script>
+<script src="button.js"></script>
+
 <script>
+	var game = new Game();
 	
 </script>
 
 <script>
 	//var username;
-	if (getCookie("testUser") == "") setCookie("testUser", prompt("im lookin for a name, new boy","new boy"));
-	document.getElementById("username").innerHTML = getCookie("testUser");
+	//if (getCookie("testUser") == "") setCookie("testUser", prompt("im lookin for a name, new boy","new boy"));
+	//document.getElementById("username").innerHTML = getCookie("testUser");
 	
 	var body = document.body;
 	body.style.backgroundColor = "rgb(200,200,200)";
@@ -70,15 +78,97 @@ display:block;
 	//setCookie("tc2", "i know your smile, your voice, just like that");
 	//setCookie("tc3", "you talk to me and i smile back");
 	//document.cookie = "tc1=yoyoyo";
-	console.log(document.cookie);
-	console.log(getCookie("tc1"));
-	console.log(getCookie("tc2"));
-	console.log(getCookie("tc3"));
+	//console.log(document.cookie);
+	//console.log(getCookie("tc1"));
+	//console.log(getCookie("tc2"));
+	//console.log(getCookie("tc3"));
 	//clearCookie("tc1");
 	//clearAllCookies();
 	//console.log(getCookie("tc1"));
 	//console.log(getCookie("tc2"));
 	//console.log(getCookie("tc3"));
+	
+	/*
+	var one_year = 60*60*24*365;
+	var one_month = 60*60*24*30;
+	var one_week = 60*60*24*7;
+	var one_day = 60*60*24;
+	var one_hour = 60*60;
+	var one_minute = 60;
+	for (let i = 1; i <= 50; i++) {
+		var sec = getSecondsInLevel(i), fit = 0, time_string = "";
+		var years = 0, months = 0; weeks = 0; days = 0; hours = 0; minutes = 0; seconds = 0;
+		
+		fit = Math.floor(sec/one_year)
+		if (fit >= 1) {
+			//years = fit;
+			time_string += " Year:" + fit; 
+			sec -= (fit * one_year);
+		}
+		fit = Math.floor(sec/one_month)
+		if (fit >= 1) {
+			//months = fit;
+			time_string += " Month:" + fit; 
+			sec -= (fit * one_month);
+		}
+		fit = Math.floor(sec/one_week)
+		if (fit >= 1) {
+			//weeks = fit;
+			time_string += " Week:" + fit; 
+			sec -= (fit * one_week);
+		}
+		fit = Math.floor(sec/one_day)
+		if (fit >= 1) {
+			//days = fit;
+			time_string += " Day:" + fit; 
+			sec -= (fit * one_day);
+		}
+		fit = Math.floor(sec/one_hour)
+		if (fit >= 1) {
+			//hours = fit;
+			time_string += " Hour:" + fit; 
+			sec -= (fit * one_hour);
+		}
+		fit = Math.floor(sec/one_minute)
+		if (fit >= 1) {
+			//minutes = fit;
+			time_string += " Minute:" + fit; 
+			sec -= (fit * one_minute);
+		}
+		//seconds = sec;
+		time_string += " Second:" + sec; 
+		//sec -= seconds;
+		
+		var milestone = "";
+		if (sec >= one_year) milestone = "|year milestone|";
+		else if (sec >= 60*60*24*30*3) milestone = "|season milestone|";
+		else if (sec >= one_month) milestone = "|month milestone|";
+		else if (sec >= one_week) milestone = "|week milestone|";
+		else if (sec >= one_day) milestone = "|day milestone|";
+		else if (sec >= one_hour) milestone = "|hour milestone|";
+		else if (sec >= one_minute) milestone = "|minute milestone|";
+		//console.log(milestone + " lvl " + i + ": " + sec + " (" + (sec - getSecondsInLevel(i-1)) + ")");
+		
+		console.log(milestone + " lvl " + i + ": " + time_string + " inc(" + (getSecondsInLevel(i) - getSecondsInLevel(i-1)) + ") total(" + getCumulativeTimeInLevel(i) + ")");
+	}
+	*/
+	
+	//var now = new Date();		//date
+	//var later = new Date();
+	//console.log(now);
+	//console.log(now.toString());	//date in local time
+	//console.log(now.toUTCString());	//date in (absolute) utc, store this way
+	//later.setSeconds(later.getSeconds() + 60)
+	//console.log(later.toUTCString());
+	//var dif = Math.round(Math.abs(later - now) / 1000);
+	//console.log(dif);
+	//console.log(now);
+	//console.log(now.toString());
+	//console.log(now.toUTCString());
+	//var utc = now.toUTCString();
+	//var rec = new Date(utc);
+	//console.log(rec.toUTCString());
+	
 	
 	function touch_down() {
 		document.body.style.backgroundColor = "rgb(100,100,255)";
@@ -88,6 +178,7 @@ display:block;
 		document.body.style.backgroundColor = "rgb(255,100,100)";
 	}
 	
+	/*
 	function getCookie(coo) {
 		var match = coo + "=";											//match this in cookie string
 		var decoded_cookies = decodeURIComponent(document.cookie);		//apparently helps special characters
@@ -118,6 +209,22 @@ display:block;
 	}
 	
 	function printCookies() { console.log(document.cookie); }
+	*/
+	
+	function getSecondsInLevel(lvl) {
+		//return Math.round(Math.pow(2, 1.1 * lvl));
+		//return Math.round(10 + Math.pow(1.5, 1.1 * lvl));
+		//return Math.round(10 + Math.pow(1.45, 1.1 * lvl));
+		//return Math.round(10 + Math.pow(1.45, 1.1 * lvl));
+		//return Math.round(10 + Math.pow(1.2735, 2 * lvl));
+		return Math.round(10 + Math.pow(1.3, 1.33 * lvl));
+	}
+	
+	function getCumulativeTimeInLevel(lvl) {
+		var sum = 0;
+		for (let i = 1; i <= lvl; i++) sum += getSecondsInLevel(i);
+		return sum;
+	}
 	
 	/*const bri = 200;
 	var green = bri;
