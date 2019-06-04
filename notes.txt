@@ -1,0 +1,46 @@
+------
+Button Color
+	-Red
+	-Blue
+	-Yellow
+------
+	-Purple (Red + Blue)
+	-Green (Blue + Yellow)
+	-Orange (Yellow + Red)
+------
+------
+Background Color
+-
+
+Button Plaque
+
+Button Font
+
+
+Requirements for SideGames:
+
+RPG Battle
+-Unlocks: New Button Plaque per Background Color
+Notes:
+-Button Color: Class
+	-
+knight, paladin, barbarian, bard, lancer, X-mancer, sage, cleric, druid, archer, mage, wizard, ranger
+
+-Background Color: Room/Enemy
+
+-(optional) Button Plaque: Equipment; Default is no bonus
+-(optional) Button Name: Name; Default is "Button"
+
+Dating Sim
+Unlocks: New Sticker per Button Font
+Notes:
+-Button Name: Name in Speechbubble
+-Button Font: Personality/Correct Decisions/Ending and Font in Speechbubble
+	-Royal/Elegant/Lofty ("oh ho ho ho, quaint")
+	-Energized Jap/Tsundere/Flustered ("sugoisugoisugoi noT THAt i carE Or AnYtHiNg")
+	-Dandere or whatever the quiet unresponsive one is ("...?")
+	-Casual/Friendly/Lazy ("suuup, how have you been?")
+	
+-"Special Gamer" Speech Bubble: Where Button will Chat
+
+-(optional) Background Color: Date Location; Default is an empty gray room

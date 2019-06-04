@@ -38,7 +38,7 @@
 	height:55px;
 }
 body {
-	background-color:green;
+	background-color:rgb(200,200,200);
 	overflow-x:hidden;
 	touch-action:manipulation;
 }
@@ -55,14 +55,19 @@ display:block;
 	<div id="username"></div>
 	<br>
 	<button id="thebutton" ontouchstart="game.button.touchStart();" ontouchend="game.button.touchEnd()"></button>
-	<br>
+	
 	<div id="timer"></div>
 	<div id="level"></div>
-	<button id="level_up" onclick="game.levelUp()">Level Up</button>
 	<br>
-	<button id="clear_cookies" onclick="clearAllCookies()">Clear Cookies</button>
-	<br>
-	<button id="print_cookies" onclick="printCookies()">Print Cookies</button>
+	<fieldset id="debug_menu">
+		debug
+		<br>
+		<button id="level_up" onclick="game.levelUp()">Level Up</button>
+		<br>
+		<button id="clear_cookies" onclick="clearAllCookies()">Clear Cookies</button>
+		<br>
+		<button id="print_cookies" onclick="printCookies()">Print Cookies</button>
+	</fieldset>
 </div>
 
 
@@ -71,6 +76,7 @@ display:block;
 
 <script>
 	var game = new Game();
+	document.getElementById("debug_menu").style.visibility = "hidden";
 	
 </script>
 
@@ -79,8 +85,8 @@ display:block;
 	//if (getCookie("testUser") == "") setCookie("testUser", prompt("im lookin for a name, new boy","new boy"));
 	//document.getElementById("username").innerHTML = getCookie("testUser");
 	
-	var body = document.body;
-	body.style.backgroundColor = "rgb(200,200,200)";
+	//var body = document.body;
+	//body.style.backgroundColor = "rgb(200,200,200)";
 	//document.cookie = "tc1=heyworld";
 	//document.cookie = "tc2=12345";
 	console.log(document.cookie);
@@ -98,8 +104,8 @@ display:block;
 	//console.log(getCookie("tc1"));
 	//console.log(getCookie("tc2"));
 	//console.log(getCookie("tc3"));
-	var temp = new Date();
-	console.log(">>" + temp.toUTCString());
+	//var temp = new Date();
+	//console.log(">>" + temp.toUTCString());
 	
 	/*
 	var one_year = 60*60*24*365;

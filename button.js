@@ -2,13 +2,24 @@
 Button = function(game) {
 	this.div = document.getElementById("thebutton");
 	this.game = game;
+	this.ready = false;
+	this.div.style.backgroundColor = "red";
+	
+	this.setReady = function(rdy) {
+		this.ready = rdy;
+	}
 	
 	this.touchStart = function() {
-		document.body.style.backgroundColor = "rgb(100,100,255)";
+		this.div.style.backgroundColor = "rgb(100,100,255)";
 	}
 	
 	this.touchEnd = function() {
-		document.body.style.backgroundColor = "rgb(255,100,100)";
+		this.div.style.backgroundColor = "rgb(255,100,100)";
+		if (this.ready) {
+			//console.log(this.game);
+			this.game.levelUp();
+			this.setReady(false);
+		}
 	}
 	
 	return this;
@@ -108,9 +119,18 @@ Game = function() {
 		clearInterval(this.timer_interval);
 		this.timer_interval = setInterval(function() {
 			if (seconds_left > 0) seconds_left--;
-			else clearInterval(this.timer_interval);
+			else {
+				callback.call(this);
+				//clearInterval(this.timer_interval);
+			}
 			timer.innerHTML = seconds_left;
 		}.bind(this), 1000);
+		
+		
+		function callback() {
+			clearInterval(this.timer_interval);
+			this.button.setReady(true);
+		}
 	}
 	
 	this.setLevel = function(level) {
@@ -134,10 +154,12 @@ Game = function() {
 	this.levelUp = function() {
 		this.setLevel(this.getLevel() + 1);
 		this.prepareLevel(this.getLevel());
+		// currently setting state to false here and in button
+		this.button.setReady(false);
 	}
 	
 	this.onPageLoad = function() {
-		// first page load
+		//// first page load
 		if (getCookie("player_name") == "" || getCookie("player_name") == null) {
 			this.initPlayerName();
 			this.setLevel(1);
@@ -147,32 +169,39 @@ Game = function() {
 			
 		}
 		
-		// nonfirst page load
+		//// nonfirst page load
 		
-		// every page load
+		//// every page load
+		// set username
 		document.getElementById("username").innerHTML = getCookie("player_name");
+		// display the player's level
 		this.updateOnscreenLevel(this.getLevel());
+		// determine how much time is left on the timer, pos or neg
 		var seconds_left = this.getSecondsLeft();
 		console.log(seconds_left);
 		
+		// timer is complete, button should be ready
 		if (seconds_left <= 0) {
 			console.log("timer is up!");
 			document.getElementById("timer").innerHTML = seconds_left;
+			this.button.setReady(true);
 			//seconds_left negative, corresponds to wasted time
 		}
+		// timer is not complete, button should not be ready
 		else {
 			console.log("timer is continuing!");
 			this.updateOnscreenTimer(seconds_left);
 			this.updateOnscreenLevel(this.getLevel());
+			this.button.setReady(false);
 			//seconds_left positive, still waiting to be ready
 		}
 		
 		//setInterval if timer is not up
 	}
 	
-	this.onPageUnload = function(event) {
-		//setCookie("timer_end", num.toString(this.level));
-	}
+	//this.onPageUnload = function(event) {
+	//	//setCookie("timer_end", num.toString(this.level));
+	//}
 	
 	
 	this.onPageLoad();
